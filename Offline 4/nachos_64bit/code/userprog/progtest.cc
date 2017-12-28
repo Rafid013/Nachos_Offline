@@ -11,11 +11,12 @@
 #include "copyright.h"
 #include "system.h"
 #include "console.h"
-#include "addrspace.h"
 #include "synch.h"
+#include "addrspace.h"
+#include "memory_manager.h"
 
 //----------------------------------------------------------------------
-// StartProcess
+//  StartProcess
 // 	Run a user program.  Open the executable, load it into
 //	memory, and jump to it.
 //----------------------------------------------------------------------
@@ -23,6 +24,7 @@
 void
 StartProcess(const char *filename)
 {
+    memoryManager = new MemoryManager(NumPhysPages);
     OpenFile *executable = fileSystem->Open(filename);
     AddrSpace *space;
 
@@ -38,7 +40,7 @@ StartProcess(const char *filename)
     space->InitRegisters();		// set the initial register values
     space->RestoreState();		// load page table register
 
-    machine->Run();			// jump to the user progam
+    machine->Run();			// jump to the user program
     ASSERT(false);			// machine->Run never returns;
 					// the address space exits
 					// by doing the syscall "exit"

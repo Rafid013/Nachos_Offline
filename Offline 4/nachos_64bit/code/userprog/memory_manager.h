@@ -12,7 +12,7 @@ class MemoryManager {
     BitMap *page_tracker;
     Lock *lock;
 public:
-    MemoryManager(int numPages);
+    explicit MemoryManager(int numPages);
     ~MemoryManager();
     int AllocPage();
     void FreePage(int physPageNum);
