@@ -8,6 +8,7 @@
 MemoryManager::MemoryManager(int numPages) {
     page_tracker = new BitMap(numPages);
     lock = new Lock("memory manager lock");
+    freePageCount = numPages;
 }
 
 MemoryManager::~MemoryManager() {
@@ -33,4 +34,15 @@ bool MemoryManager::pageIsAllocated(int physPageNum) {
     bool retBool = page_tracker->Test(physPageNum);
     lock->Release();
     return retBool;
+}
+
+bool MemoryManager::checkAndDecreasePageCount(int pageToAlloc_Count) {
+    lock->Acquire();
+    if(pageToAlloc_Count <= freePageCount) {
+        freePageCount -= pageToAlloc_Count;
+        lock->Release();
+        return true;
+    }
+    lock->Release();
+    return false;
 }

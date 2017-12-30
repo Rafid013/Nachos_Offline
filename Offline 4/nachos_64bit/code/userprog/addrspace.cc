@@ -42,6 +42,90 @@ SwapHeader (NoffHeader *noffH)
 	noffH->uninitData.inFileAddr = WordToHost(noffH->uninitData.inFileAddr);
 }
 
+
+bool loadCodeSegment(NoffHeader noffH, OpenFile *executable, TranslationEntry *pageTable) {
+    if(noffH.code.size > 0) {
+        int fileOffset = noffH.code.inFileAddr;
+        int bytesLeft = noffH.code.size;
+
+        //reading starting page fraction
+        int virtual_page_no = noffH.code.virtualAddr / PageSize;
+        int offsetFromPageStart = noffH.code.virtualAddr % PageSize;
+        int physical_page_no = pageTable[virtual_page_no].physicalPage;
+        int physicalAddr = physical_page_no*PageSize + offsetFromPageStart;
+        if(offsetFromPageStart != 0) {
+            int bytesToRead = PageSize - offsetFromPageStart;
+            executable->ReadAt(machine->mainMemory + physicalAddr, bytesToRead, fileOffset);
+            //update fileOffset and bytesLeft
+            bytesLeft -= bytesToRead;
+            fileOffset += bytesToRead;
+            ++virtual_page_no;
+        }
+
+        //reading full pages until no full page left
+        while(bytesLeft / PageSize > 0) {
+            physical_page_no = pageTable[virtual_page_no].physicalPage;
+            physicalAddr = physical_page_no*PageSize;
+            executable->ReadAt(machine->mainMemory + physicalAddr, PageSize, fileOffset);
+
+            //update fileOffset and bytesLeft
+            bytesLeft -= PageSize;
+            fileOffset += PageSize;
+            ++virtual_page_no;
+        }
+
+        //++virtual_page_no;
+        physical_page_no = pageTable[virtual_page_no].physicalPage;
+        physicalAddr = physical_page_no*PageSize;
+        executable->ReadAt(machine->mainMemory + physicalAddr, bytesLeft, fileOffset);
+        return true;
+    }
+    return false;
+}
+
+
+bool loadDataSegment(NoffHeader noffH, OpenFile *executable, TranslationEntry *pageTable) {
+    if(noffH.initData.size > 0) {
+        int fileOffset = noffH.initData.inFileAddr;
+        int bytesLeft = noffH.initData.size;
+
+        //reading starting page fraction
+        int virtual_page_no = noffH.initData.virtualAddr / PageSize;
+        int offsetFromPageStart = noffH.initData.virtualAddr % PageSize;
+        int physical_page_no = pageTable[virtual_page_no].physicalPage;
+        int physicalAddr = physical_page_no*PageSize + offsetFromPageStart;
+        if(offsetFromPageStart != 0) {
+            int bytesToRead = PageSize - offsetFromPageStart;
+            executable->ReadAt(machine->mainMemory + physicalAddr, bytesToRead, fileOffset);
+            //update fileOffset and bytesLeft
+            bytesLeft -= bytesToRead;
+            fileOffset += bytesToRead;
+            ++virtual_page_no;
+        }
+
+        //reading full pages until no full page left
+        while(bytesLeft / PageSize > 0) {
+            physical_page_no = pageTable[virtual_page_no].physicalPage;
+            physicalAddr = physical_page_no*PageSize;
+            executable->ReadAt(machine->mainMemory + physicalAddr, PageSize, fileOffset);
+
+            //update fileOffset and bytesLeft
+            bytesLeft -= PageSize;
+            fileOffset += PageSize;
+            ++virtual_page_no;
+        }
+
+        //++virtual_page_no;
+        physical_page_no = pageTable[virtual_page_no].physicalPage;
+        physicalAddr = physical_page_no*PageSize;
+        executable->ReadAt(machine->mainMemory + physicalAddr, bytesLeft, fileOffset);
+        return true;
+    }
+    else if(noffH.initData.size == 0) return true;
+    return false;
+}
+
+
 //----------------------------------------------------------------------
 // AddrSpace::AddrSpace
 // 	Create an address space to run a user program.
@@ -56,6 +140,10 @@ SwapHeader (NoffHeader *noffH)
 //
 //	"executable" is the file containing the object code to load into memory
 //----------------------------------------------------------------------
+
+AddrSpace::AddrSpace() {
+
+}
 
 AddrSpace::AddrSpace(OpenFile *executable)
 {
@@ -112,6 +200,58 @@ AddrSpace::AddrSpace(OpenFile *executable)
         executable->ReadAt(&(machine->mainMemory[noffH.initData.virtualAddr]),
 			noffH.initData.size, noffH.initData.inFileAddr);
     }
+
+}
+
+
+int AddrSpace::Initialize(OpenFile *executable) {
+
+    //Executable Header related checks
+
+    NoffHeader noffH;
+    unsigned int i, size;
+
+    executable->ReadAt((char *)&noffH, sizeof(noffH), 0);
+    if ((noffH.noffMagic != NOFFMAGIC) &&
+        (WordToHost(noffH.noffMagic) == NOFFMAGIC))
+        SwapHeader(&noffH);
+    ASSERT(noffH.noffMagic == NOFFMAGIC);
+
+    // how big is address space?
+    size = noffH.code.size + noffH.initData.size + noffH.uninitData.size + UserStackSize;
+    // we need to increase the size
+    // to leave room for the stack
+    numPages = divRoundUp(size, PageSize);
+    size = numPages * PageSize;
+
+    //check if it fits
+    if(!memoryManager->checkAndDecreasePageCount(numPages)) return 0;
+    DEBUG('a', "Initializing address space, num pages %d, size %d\n",
+          numPages, size);
+
+    //creating page table
+    pageTable = new TranslationEntry[numPages];
+    for(i = 0; i < numPages; ++i) {
+        pageTable[i].virtualPage = i;
+        pageTable[i].physicalPage = memoryManager->AllocPage();
+        pageTable[i].valid = true;
+        pageTable[i].use = false;
+        pageTable[i].dirty = false;
+        pageTable[i].readOnly = false;  // if the code segment was entirely on
+        // a separate page, we could set its
+        // pages to be read-only
+    }
+
+    //Zeroing Out The Address Space
+    for(i = 0; i < numPages; ++i) {
+        bzero(machine->mainMemory + pageTable[i].physicalPage * PageSize, PageSize);
+    }
+
+
+    //Loading Code and Data into the Address Space
+    if(!loadCodeSegment(noffH, executable, pageTable)) return 0;
+    if(!loadDataSegment(noffH, executable, pageTable)) return 0;
+    return 1;
 
 }
 

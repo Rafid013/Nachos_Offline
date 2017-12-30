@@ -52,6 +52,11 @@ halt: halt.o start.o
 	$(LD) $(LDFLAGS) start.o halt.o -o halt.coff
 	../bin/coff2noff halt.coff halt
 
+array.o: array.c
+	$(CC) $(CFLAGS) -c array.c
+array: array.o start.o
+	$(LD) $(LDFLAGS) start.o array.o -o array.coff
+	../bin/coff2noff array.coff array
 
 shell.o: shell.c
 	$(CC) $(CFLAGS) -c shell.c

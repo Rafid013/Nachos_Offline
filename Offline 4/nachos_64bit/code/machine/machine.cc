@@ -94,14 +94,14 @@ Machine::~Machine()
 //	occured (such as the address translation failed).
 //
 //	"which" -- the cause of the kernel trap
-//	"badVaddr" -- the virtual address causing the trap, if appropriate
+//	"badVAddr" -- the virtual address causing the trap, if appropriate
 //----------------------------------------------------------------------
 
 void
 Machine::RaiseException(ExceptionType which, int badVAddr)
 {
     DEBUG('m', "Exception: %s\n", exceptionNames[which]);
-    
+
 //  ASSERT(interrupt->getStatus() == UserMode);
     registers[BadVAddrReg] = badVAddr;
     DelayedLoad(0, 0);			// finish anything in progress

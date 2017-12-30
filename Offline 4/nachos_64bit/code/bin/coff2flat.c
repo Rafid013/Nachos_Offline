@@ -29,7 +29,7 @@
 
 /* NOTE -- once you have implemented large files, it's ok to make this bigger! */
 #define StackSize      		1024      /* in bytes */
-#define ReadStruct(f,s) 	Read(f,(char *)&s,sizeof(s))
+#define ReadStruct(f,s) 	(Read(f,(char *)&(s), sizeof(s))
 
 extern char *malloc();
 
