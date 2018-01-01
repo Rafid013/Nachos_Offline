@@ -204,7 +204,7 @@ AddrSpace::AddrSpace(OpenFile *executable)
 }
 
 
-int AddrSpace::Initialize(OpenFile *executable) {
+bool AddrSpace::Initialize(OpenFile *executable) {
 
     //Executable Header related checks
 
@@ -225,7 +225,7 @@ int AddrSpace::Initialize(OpenFile *executable) {
     size = numPages * PageSize;
 
     //check if it fits
-    if(!memoryManager->checkAndDecreasePageCount(numPages)) return 0;
+    if(!memoryManager->checkAndDecreasePageCount(numPages)) return false;
     DEBUG('a', "Initializing address space, num pages %d, size %d\n",
           numPages, size);
 
@@ -249,9 +249,7 @@ int AddrSpace::Initialize(OpenFile *executable) {
 
 
     //Loading Code and Data into the Address Space
-    if(!loadCodeSegment(noffH, executable, pageTable)) return 0;
-    if(!loadDataSegment(noffH, executable, pageTable)) return 0;
-    return 1;
+    return loadCodeSegment(noffH, executable, pageTable) && loadDataSegment(noffH, executable, pageTable);
 
 }
 
@@ -274,6 +272,15 @@ AddrSpace::~AddrSpace()
 //	will be saved/restored into the currentThread->userRegisters
 //	when this thread is context switched out.
 //----------------------------------------------------------------------
+
+
+void AddrSpace::setSpaceId(SpaceId spaceId) {
+    this->spaceId = spaceId;
+}
+
+SpaceId AddrSpace::getSpaceId() {
+    return spaceId;
+}
 
 void
 AddrSpace::InitRegisters()

@@ -21,9 +21,14 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 
+#include <cstdio>
 #include "copyright.h"
-#include "system.h"
 #include "syscall.h"
+#include "../machine/machine.h"
+#include "../filesys/openfile.h"
+#include "../userprog/addrspace.h"
+#include "../threads/thread.h"
+#include "../threads/system.h"
 
 //----------------------------------------------------------------------
 // ExceptionHandler
@@ -48,16 +53,100 @@
 //	are in machine.h.
 //----------------------------------------------------------------------
 
+bool readFileNameFromIntegerAddr(int addr, char *fileName) {
+    int tempC;
+    int i = 0;
+    bool nullFound = false;
+    while(!nullFound) {
+        if(!machine->ReadMem(addr, 1, &tempC)) {
+            return false;
+        }
+        ++addr;
+        if(tempC != '\0') {
+            fileName[i++] = (char)tempC;
+        }
+        else nullFound = true;
+    }
+    fileName[i] = '\0';
+    return true;
+}
+
+
+SpaceId ExecCallInitialization(AddrSpace *space) {
+    int fileNameAddr = machine->ReadRegister(4);
+    char* fileName = new char[20];
+    if(!readFileNameFromIntegerAddr(fileNameAddr, fileName)) {
+        return 0;
+    }
+    OpenFile *executable = fileSystem->Open(fileName);
+    if (executable == NULL) {
+        printf("Unable to open file %s\n", fileName);
+        return 0;
+    }
+    if(!space->Initialize(executable)) {
+        return 0;
+    }
+    delete executable;
+    SpaceId spaceId = spaceIdGenerator->generate();
+    space->setSpaceId(spaceId);
+    return spaceId;
+}
+
+
+void Execute(AddrSpace *space) {
+    space->InitRegisters();
+    space->RestoreState();
+    machine->Run();
+}
+
+
 void
 ExceptionHandler(ExceptionType which)
 {
     int type = machine->ReadRegister(2);
 
     if ((which == SyscallException) && (type == SC_Halt)) {
-	DEBUG('a', "Shutdown, initiated by user program.\n");
-   	interrupt->Halt();
-    } else {
-	printf("Unexpected user mode exception %d %d\n", which, type);
-	ASSERT(false);
+        DEBUG('a', "Shutdown, initiated by user program.\n");
+        interrupt->Halt();
     }
+    else if((which == SyscallException) && (type == SC_Exec)){
+
+        //exec initialization
+        AddrSpace* space = new AddrSpace();
+        SpaceId spaceId = ExecCallInitialization(space);
+
+
+        //write result to register
+        machine->WriteRegister(2, spaceId);
+        if(spaceId != 0) {
+            //start a new thread for this call
+            Thread* thread = new Thread("Exec System Call");
+            int table_index = processTable->add((void*)thread);
+            thread->threadIndex = table_index;
+            thread->space = space;
+            thread->Fork((VoidFunctionPtr)&Execute, (void*)space);
+        }
+
+
+    }
+    else if((which == SyscallException) && (type == SC_Exit)){
+        int exitStatus = machine->ReadRegister(4);
+        printf("Exit Status: %d\n", exitStatus);
+        processTable->release(currentThread->threadIndex);
+        SpaceId spaceId = currentThread->space->getSpaceId();
+        spaceIdGenerator->releaseId(spaceId);
+        delete currentThread->space;
+        machine->WriteRegister(2, exitStatus);
+        currentThread->Finish();
+    }
+    else {
+        printf("Unexpected user mode exception %d %d\n", which, type);
+        //ASSERT(false);
+    }
+    int pc = machine->ReadRegister(PCReg);
+    machine->WriteRegister(PrevPCReg, pc);
+    pc = machine->ReadRegister(NextPCReg);
+    machine->WriteRegister(PCReg, pc);
+    pc += 4;
+    machine->WriteRegister(NextPCReg, pc);
 }

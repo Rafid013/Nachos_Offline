@@ -15,8 +15,12 @@
 
 #include "copyright.h"
 #include "filesys.h"
+#include "../machine/translate.h"
+#include "../filesys/openfile.h"
 
 #define UserStackSize		1024 	// increase this as necessary!
+
+typedef int SpaceId;
 
 class AddrSpace {
   public:
@@ -32,13 +36,16 @@ class AddrSpace {
     void SaveState();			// Save/restore address space-specific
     void RestoreState();		// info on a context switch
 
-    int Initialize(OpenFile *executable);
+    bool Initialize(OpenFile *executable);
+    void setSpaceId(SpaceId spaceId);
+    SpaceId getSpaceId();
 
   private:
     TranslationEntry *pageTable;	// Assume linear page table translation
 					// for now!
     unsigned int numPages;		// Number of pages in the virtual 
 					// address space
+    SpaceId spaceId;
 };
 
 #endif // ADDRSPACE_H

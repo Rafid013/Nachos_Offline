@@ -16,6 +16,8 @@
 #include "stats.h"
 #include "timer.h"
 
+
+
 // Initialization and cleanup routines
 extern void Initialize(int argc, char **argv); 	// Initialization,
 						// called before anything else
@@ -32,8 +34,14 @@ extern Timer *timer;				// the hardware alarm clock
 #ifdef USER_PROGRAM
 #include "machine.h"
 #include "memory_manager.h"
+#include "table.h"
+#include "syscall.h"
+#include "spaceid_generator.h"
+#define PROGRAM_COUNT 20
 extern Machine* machine;	// user program memory and registers
+extern Table *processTable;
 extern MemoryManager *memoryManager;
+extern SpaceIdGenerator *spaceIdGenerator;
 #endif
 
 #ifdef FILESYS_NEEDED 		// FILESYS or FILESYS_STUB 

@@ -4,14 +4,15 @@
  * A simple program that has code and data and fits into memory.
  */
 
-int Exec(char *, int, char **, int);
-int Exit(int);
+#include "syscall.h"
+
+//int Exit(int);
 
 int array[48] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-		 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-		 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-		 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-		 41, 42, 43, 44, 45, 46, 47};
+                 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                 41, 42, 43, 44, 45, 46, 47};
 
 void
 verify_array(int n)
@@ -19,9 +20,9 @@ verify_array(int n)
     int i;
 
     for (i = 0; i < n; i++) {
-	if (array[i] != i) {
-	    Exit(-1);
-	}
+        if (array[i] != i) {
+            Exit(-1);
+        }
     }
 }
 
@@ -32,7 +33,7 @@ add_array(int n)
 
     sum = 0;
     for (i = 0; i < n; i++) {
-	sum += array[i];
+        sum += array[i];
     }
     return sum;
 }

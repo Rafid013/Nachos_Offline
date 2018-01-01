@@ -91,7 +91,7 @@ Machine::~Machine()
 // Machine::RaiseException
 // 	Transfer control to the Nachos kernel from user mode, because
 //	the user program either invoked a system call, or some exception
-//	occured (such as the address translation failed).
+//	occurred (such as the address translation failed).
 //
 //	"which" -- the cause of the kernel trap
 //	"badVAddr" -- the virtual address causing the trap, if appropriate

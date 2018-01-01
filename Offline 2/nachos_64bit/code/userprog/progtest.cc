@@ -13,7 +13,12 @@
 #include "console.h"
 #include "synch.h"
 #include "addrspace.h"
+#include "syscall.h"
+#include "spaceid_generator.h"
+#include "table.h"
 #include "memory_manager.h"
+
+
 
 //----------------------------------------------------------------------
 //  StartProcess
@@ -25,6 +30,8 @@ void
 StartProcess(const char *filename)
 {
     memoryManager = new MemoryManager(NumPhysPages);
+    processTable = new Table(PROGRAM_COUNT);
+    spaceIdGenerator = new SpaceIdGenerator(10);
     OpenFile *executable = fileSystem->Open(filename);
     AddrSpace *space;
 
@@ -33,15 +40,19 @@ StartProcess(const char *filename)
 		return;
     }
     space = new AddrSpace();
-    int ret = space->Initialize(executable);
-    if(ret == 0) return;
+    if(!space->Initialize(executable)) return;
     currentThread->space = space;
+
+    int table_index = processTable->add((void*)currentThread);
+    currentThread->threadIndex = table_index;
 
     delete executable;			// close file
 
     space->InitRegisters();		// set the initial register values
     space->RestoreState();		// load page table register
 
+    SpaceId spaceId = spaceIdGenerator->generate();
+    space->setSpaceId(spaceId);
 
     machine->Run();			// jump to the user program
     ASSERT(false);			// machine->Run never returns;
