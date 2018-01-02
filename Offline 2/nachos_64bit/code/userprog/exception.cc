@@ -53,7 +53,7 @@
 //	are in machine.h.
 //----------------------------------------------------------------------
 
-bool readFileNameFromIntegerAddr(int addr, char *fileName) {
+bool readFileNameVirtualAddr(int addr, char *fileName) {
     int tempC;
     int i = 0;
     bool nullFound = false;
@@ -71,11 +71,10 @@ bool readFileNameFromIntegerAddr(int addr, char *fileName) {
     return true;
 }
 
-
 SpaceId ExecCallInitialization(AddrSpace *space) {
     int fileNameAddr = machine->ReadRegister(4);
     char* fileName = new char[20];
-    if(!readFileNameFromIntegerAddr(fileNameAddr, fileName)) {
+    if(!readFileNameVirtualAddr(fileNameAddr, fileName)) {
         return 0;
     }
     OpenFile *executable = fileSystem->Open(fileName);
@@ -99,6 +98,74 @@ void Execute(AddrSpace *space) {
     machine->Run();
 }
 
+void ExecCall() {
+    //exec initialization
+    AddrSpace *space = new AddrSpace();
+    SpaceId spaceId = ExecCallInitialization(space);
+
+
+    //write result to register
+    machine->WriteRegister(2, spaceId);
+    if (spaceId != 0) {
+        //start a new thread for this call
+        Thread *thread = new Thread("Exec System Call");
+        int table_index = processTable->add((void *) thread);
+        thread->threadIndex = table_index;
+        thread->space = space;
+        thread->Fork((VoidFunctionPtr)&Execute, (void*)space);
+    }
+}
+
+void ExitCall() {
+    int exitStatus = machine->ReadRegister(4);
+    printf("Exit Status: %d\n", exitStatus);
+    processTable->release(currentThread->threadIndex);
+    SpaceId spaceId = currentThread->space->getSpaceId();
+    spaceIdGenerator->releaseId(spaceId);
+    delete currentThread->space;
+    machine->WriteRegister(2, exitStatus);
+    currentThread->Finish();
+}
+
+
+void ReadCall() {
+    //get parameters
+    int bufferAddr = machine->ReadRegister(4);
+    int size = machine->ReadRegister(5);
+    int fileID = machine->ReadRegister(6);
+
+    //check fileID
+    if(fileID != ConsoleInput) {
+        machine->WriteRegister(2, -1);
+        return;
+    }
+
+
+    //read and store in buffer
+    int bytesRead = synchConsole->Read(bufferAddr, size);
+    machine->WriteRegister(2, bytesRead);
+}
+
+
+void WriteCall() {
+    //get parameters
+    int bufferAddr = machine->ReadRegister(4);
+    int size = machine->ReadRegister(5);
+    int fileID = machine->ReadRegister(6);
+
+    //check fileID
+    if(fileID != ConsoleOutput) {
+        machine->WriteRegister(2, -1);
+        return;
+    }
+
+
+    //write from buffer to console
+    if(!synchConsole->Write(bufferAddr, size))
+        machine->WriteRegister(2, -1);
+    else machine->WriteRegister(2, 0);
+}
+
 
 void
 ExceptionHandler(ExceptionType which)
@@ -109,35 +176,17 @@ ExceptionHandler(ExceptionType which)
         DEBUG('a', "Shutdown, initiated by user program.\n");
         interrupt->Halt();
     }
-    else if((which == SyscallException) && (type == SC_Exec)){
-
-        //exec initialization
-        AddrSpace* space = new AddrSpace();
-        SpaceId spaceId = ExecCallInitialization(space);
-
-
-        //write result to register
-        machine->WriteRegister(2, spaceId);
-        if(spaceId != 0) {
-            //start a new thread for this call
-            Thread* thread = new Thread("Exec System Call");
-            int table_index = processTable->add((void*)thread);
-            thread->threadIndex = table_index;
-            thread->space = space;
-            thread->Fork((VoidFunctionPtr)&Execute, (void*)space);
-        }
-
-
+    else if((which == SyscallException) && (type == SC_Exec)) {
+        ExecCall();
     }
-    else if((which == SyscallException) && (type == SC_Exit)){
-        int exitStatus = machine->ReadRegister(4);
-        printf("Exit Status: %d\n", exitStatus);
-        processTable->release(currentThread->threadIndex);
-        SpaceId spaceId = currentThread->space->getSpaceId();
-        spaceIdGenerator->releaseId(spaceId);
-        delete currentThread->space;
-        machine->WriteRegister(2, exitStatus);
-        currentThread->Finish();
+    else if((which == SyscallException) && (type == SC_Exit)) {
+        ExitCall();
+    }
+    else if((which == SyscallException) && (type == SC_Read)) {
+        ReadCall();
+    }
+    else if((which == SyscallException) && (type == SC_Write)) {
+        WriteCall();
     }
     else {
         printf("Unexpected user mode exception %d %d\n", which, type);

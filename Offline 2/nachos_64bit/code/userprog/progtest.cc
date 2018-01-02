@@ -17,6 +17,7 @@
 #include "spaceid_generator.h"
 #include "table.h"
 #include "memory_manager.h"
+#include "synch_console.h"
 
 
 
@@ -32,6 +33,7 @@ StartProcess(const char *filename)
     memoryManager = new MemoryManager(NumPhysPages);
     processTable = new Table(PROGRAM_COUNT);
     spaceIdGenerator = new SpaceIdGenerator(10);
+    synchConsole = new SynchConsole();
     OpenFile *executable = fileSystem->Open(filename);
     AddrSpace *space;
 
@@ -53,7 +55,6 @@ StartProcess(const char *filename)
 
     SpaceId spaceId = spaceIdGenerator->generate();
     space->setSpaceId(spaceId);
-
     machine->Run();			// jump to the user program
     ASSERT(false);			// machine->Run never returns;
 					// the address space exits

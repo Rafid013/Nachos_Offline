@@ -37,6 +37,7 @@ Machine *machine;	// user program memory and registers
 Table *processTable;
 MemoryManager *memoryManager;
 SpaceIdGenerator *spaceIdGenerator;
+SynchConsole *synchConsole;
 #endif
 
 #ifdef NETWORK

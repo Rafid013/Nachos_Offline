@@ -215,4 +215,4 @@ add_executable(Nachos_Offline
         "Offline 2/nachos_64bit/code/Makefile.common"
         "Offline 2/nachos_64bit/code/Makefile.dep"
         CMakeLists.txt
-        README.md "Offline 2/nachos_64bit/code/test/array.c" "Offline 2/nachos_64bit/code/userprog/table.h" "Offline 2/nachos_64bit/code/userprog/table.cc" "Offline 2/nachos_64bit/code/userprog/spaceid_generator.cc" "Offline 2/nachos_64bit/code/userprog/spaceid_generator.h" "Offline 2/nachos_64bit/code/test/newtest.c")
+        README.md "Offline 2/nachos_64bit/code/test/array.c" "Offline 2/nachos_64bit/code/userprog/table.h" "Offline 2/nachos_64bit/code/userprog/table.cc" "Offline 2/nachos_64bit/code/userprog/spaceid_generator.cc" "Offline 2/nachos_64bit/code/userprog/spaceid_generator.h" "Offline 2/nachos_64bit/code/test/newtest.c" "Offline 2/nachos_64bit/code/userprog/synch_console.cc" "Offline 2/nachos_64bit/code/userprog/synch_console.h")

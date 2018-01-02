@@ -25,6 +25,7 @@
 
 #include "copyright.h"
 #include "utility.h"
+#include "../threads/utility.h"
 
 // The following class defines a hardware console device.
 // Input and output to the device is simulated by reading 

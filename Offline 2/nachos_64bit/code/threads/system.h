@@ -37,6 +37,8 @@ extern Timer *timer;				// the hardware alarm clock
 #include "table.h"
 #include "syscall.h"
 #include "spaceid_generator.h"
+#include "synch_console.h"
+extern SynchConsole *synchConsole;
 #define PROGRAM_COUNT 20
 extern Machine* machine;	// user program memory and registers
 extern Table *processTable;

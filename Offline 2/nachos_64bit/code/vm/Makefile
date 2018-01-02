@@ -99,7 +99,9 @@ main.o: ../threads/main.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/scheduler.h ../threads/list.h \
  ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
@@ -170,7 +172,9 @@ scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/synch.h ../threads/thread.h \
  ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
@@ -242,7 +246,8 @@ synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
  ../userprog/syscall.h ../userprog/spaceid_generator.h \
- /usr/include/c++/5/cstring
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h /usr/include/c++/5/cstring
 system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/system.h ../threads/utility.h \
  ../machine/sysdep.h ../threads/copyright.h /usr/include/stdlib.h \
@@ -313,7 +318,8 @@ system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
  ../userprog/syscall.h ../userprog/spaceid_generator.h \
- ../threads/preemptive.h
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h ../threads/preemptive.h
 thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/thread.h ../threads/utility.h \
  ../machine/sysdep.h ../threads/copyright.h /usr/include/stdlib.h \
@@ -383,7 +389,9 @@ thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 utility.o: ../threads/utility.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/utility.h ../machine/sysdep.h \
  ../threads/copyright.h /usr/include/stdlib.h /usr/include/features.h \
@@ -480,7 +488,9 @@ threadtest.o: ../threads/threadtest.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../machine/interrupt.h ../threads/list.h \
  ../threads/copyright.h ../threads/utility.h ../machine/sysdep.h \
@@ -551,7 +561,9 @@ interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h /usr/include/stdio.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -654,7 +666,9 @@ sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 stats.o: ../machine/stats.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/utility.h ../threads/copyright.h \
  ../machine/sysdep.h /usr/include/stdlib.h /usr/include/features.h \
@@ -752,7 +766,9 @@ timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  ../threads/preemptive.h ../threads/system.h ../threads/copyright.h \
  ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
@@ -824,7 +840,9 @@ preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
  ../userprog/syscall.h ../userprog/spaceid_generator.h \
- /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/getopt.h \
  /usr/include/x86_64-linux-gnu/sys/ptrace.h \
@@ -907,7 +925,9 @@ addrspace.o: ../userprog/addrspace.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
  ../userprog/syscall.h ../userprog/spaceid_generator.h \
- ../userprog/addrspace.h ../bin/noff.h
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h ../userprog/addrspace.h \
+ ../bin/noff.h
 bitmap.o: ../userprog/bitmap.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../userprog/bitmap.h ../threads/utility.h \
  ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
@@ -1011,7 +1031,9 @@ exception.o: ../userprog/exception.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h ../userprog/syscall.h \
- ../userprog/spaceid_generator.h
+ ../userprog/spaceid_generator.h ../userprog/synch_console.h \
+ ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 progtest.o: ../userprog/progtest.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/system.h ../threads/copyright.h \
  ../threads/utility.h ../machine/sysdep.h /usr/include/stdlib.h \
@@ -1082,9 +1104,11 @@ progtest.o: ../userprog/progtest.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
  ../userprog/syscall.h ../userprog/spaceid_generator.h \
- ../machine/console.h ../userprog/addrspace.h ../userprog/syscall.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h ../machine/console.h \
+ ../userprog/addrspace.h ../userprog/syscall.h \
  ../userprog/spaceid_generator.h ../userprog/table.h \
- ../userprog/memory_manager.h
+ ../userprog/memory_manager.h ../userprog/synch_console.h
 console.o: ../machine/console.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../machine/console.h ../threads/utility.h \
  ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
@@ -1112,14 +1136,15 @@ console.o: ../machine/console.cc /usr/include/stdc-predef.h \
  /usr/lib/gcc/x86_64-linux-gnu/5/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
- ../threads/system.h ../threads/utility.h ../threads/thread.h \
- ../machine/machine.h ../machine/translate.h ../machine/disk.h \
- ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
- ../threads/list.h ../machine/stats.h ../machine/timer.h \
- ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
- ../threads/synch.h ../userprog/table.h ../userprog/../threads/synch.h \
+ ../machine/../threads/utility.h ../threads/system.h ../threads/utility.h \
+ ../threads/thread.h ../machine/machine.h ../machine/translate.h \
+ ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
+ ../filesys/openfile.h ../userprog/../machine/translate.h \
+ ../userprog/../filesys/openfile.h ../threads/scheduler.h \
+ ../threads/list.h ../machine/interrupt.h ../threads/list.h \
+ ../machine/stats.h ../machine/timer.h ../userprog/memory_manager.h \
+ ../userprog/bitmap.h ../filesys/openfile.h ../threads/synch.h \
+ ../userprog/table.h ../userprog/../threads/synch.h \
  /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
@@ -1154,7 +1179,8 @@ console.o: ../machine/console.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h
 machine.o: ../machine/machine.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../machine/machine.h ../threads/utility.h \
  ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
@@ -1224,7 +1250,9 @@ machine.o: ../machine/machine.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 mipssim.o: ../machine/mipssim.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../machine/machine.h ../threads/utility.h \
  ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
@@ -1295,7 +1323,9 @@ mipssim.o: ../machine/mipssim.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 translate.o: ../machine/translate.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../machine/machine.h ../threads/utility.h \
  ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
@@ -1365,7 +1395,9 @@ translate.o: ../machine/translate.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
- ../userprog/syscall.h ../userprog/spaceid_generator.h
+ ../userprog/syscall.h ../userprog/spaceid_generator.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../userprog/../machine/../threads/utility.h
 memory_manager.o: ../userprog/memory_manager.cc \
  /usr/include/stdc-predef.h ../userprog/memory_manager.h \
  ../userprog/bitmap.h ../threads/copyright.h ../threads/utility.h \
@@ -1533,6 +1565,81 @@ spaceid_generator.o: ../userprog/spaceid_generator.cc \
  /usr/include/c++/5/bits/stl_function.h \
  /usr/include/c++/5/backward/binders.h \
  /usr/include/c++/5/bits/stl_queue.h
+synch_console.o: ../userprog/synch_console.cc /usr/include/stdc-predef.h \
+ /usr/include/c++/5/cstdio \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/5/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/lib/gcc/x86_64-linux-gnu/5/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
+ ../userprog/synch_console.h ../userprog/../machine/console.h \
+ ../threads/copyright.h ../threads/utility.h ../threads/copyright.h \
+ ../machine/sysdep.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap-16.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/string.h \
+ ../userprog/../machine/../threads/utility.h \
+ ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
+ ../userprog/../threads/thread.h ../userprog/../threads/utility.h \
+ ../machine/machine.h ../machine/translate.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../threads/list.h ../threads/system.h ../threads/utility.h \
+ ../threads/thread.h ../threads/scheduler.h ../threads/list.h \
+ ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
+ ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
+ ../filesys/openfile.h ../threads/synch.h ../userprog/table.h \
+ /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
+ /usr/include/c++/5/bits/functexcept.h \
+ /usr/include/c++/5/bits/exception_defines.h \
+ /usr/include/c++/5/bits/cpp_type_traits.h \
+ /usr/include/c++/5/ext/type_traits.h \
+ /usr/include/c++/5/ext/numeric_traits.h \
+ /usr/include/c++/5/bits/stl_pair.h /usr/include/c++/5/bits/move.h \
+ /usr/include/c++/5/bits/concept_check.h \
+ /usr/include/c++/5/bits/stl_iterator_base_types.h \
+ /usr/include/c++/5/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/5/debug/debug.h /usr/include/c++/5/bits/stl_iterator.h \
+ /usr/include/c++/5/bits/ptr_traits.h \
+ /usr/include/c++/5/bits/predefined_ops.h \
+ /usr/include/c++/5/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++allocator.h \
+ /usr/include/c++/5/ext/new_allocator.h /usr/include/c++/5/new \
+ /usr/include/c++/5/exception \
+ /usr/include/c++/5/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/5/bits/memoryfwd.h \
+ /usr/include/c++/5/bits/stl_construct.h \
+ /usr/include/c++/5/ext/alloc_traits.h \
+ /usr/include/c++/5/bits/stl_uninitialized.h \
+ /usr/include/c++/5/bits/stl_deque.h \
+ /usr/include/c++/5/bits/range_access.h /usr/include/c++/5/bits/deque.tcc \
+ /usr/include/c++/5/vector /usr/include/c++/5/bits/stl_vector.h \
+ /usr/include/c++/5/bits/stl_bvector.h /usr/include/c++/5/bits/vector.tcc \
+ /usr/include/c++/5/bits/stl_heap.h \
+ /usr/include/c++/5/bits/stl_function.h \
+ /usr/include/c++/5/backward/binders.h \
+ /usr/include/c++/5/bits/stl_queue.h ../userprog/syscall.h \
+ ../userprog/spaceid_generator.h ../userprog/synch_console.h
 # DEPENDENCIES MUST END AT END OF FILE
 # IF YOU PUT STUFF HERE IT WILL GO AWAY
 # see make depend above
