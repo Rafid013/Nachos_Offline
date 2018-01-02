@@ -38,6 +38,7 @@ class AddrSpace {
 
     bool Initialize(OpenFile *executable);
     void setSpaceId(SpaceId spaceId);
+    void releasePageTable();
     SpaceId getSpaceId();
 
   private:

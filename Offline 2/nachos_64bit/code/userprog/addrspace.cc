@@ -145,7 +145,7 @@ AddrSpace::AddrSpace() {
 
 }
 
-AddrSpace::AddrSpace(OpenFile *executable)
+/*AddrSpace::AddrSpace(OpenFile *executable)
 {
     NoffHeader noffH;
     unsigned int i, size;
@@ -201,7 +201,7 @@ AddrSpace::AddrSpace(OpenFile *executable)
 			noffH.initData.size, noffH.initData.inFileAddr);
     }
 
-}
+}*/
 
 
 bool AddrSpace::Initialize(OpenFile *executable) {
@@ -253,6 +253,13 @@ bool AddrSpace::Initialize(OpenFile *executable) {
 
 }
 
+
+
+void AddrSpace::releasePageTable() {
+    for(int i = 0; i < numPages; ++i)
+        memoryManager->FreePage(pageTable[i].physicalPage);
+}
+
 //----------------------------------------------------------------------
 // AddrSpace::~AddrSpace
 // 	Deallocate an address space.  Nothing for now!
@@ -260,7 +267,8 @@ bool AddrSpace::Initialize(OpenFile *executable) {
 
 AddrSpace::~AddrSpace()
 {
-   delete pageTable;
+    releasePageTable();
+    delete pageTable;
 }
 
 //----------------------------------------------------------------------
