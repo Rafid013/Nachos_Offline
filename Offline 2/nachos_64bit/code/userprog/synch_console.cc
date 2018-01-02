@@ -34,6 +34,7 @@ int SynchConsole::Read(int bufferAddr, int size) {
             if(!machine->WriteMem(bufferAddr, 1, ch))
                 return -1;
             ++bytesRead;
+            ++bufferAddr;
         }
         else break;
     }
@@ -48,6 +49,7 @@ bool SynchConsole::Write(int bufferAddr, int size) {
             return false;
         console->PutChar((char)value);
         writeDoneSemaphore->P();
+        ++bufferAddr;
     }
     return true;
 }

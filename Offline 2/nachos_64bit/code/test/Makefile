@@ -35,7 +35,7 @@ CPP = gcc -E
 INCDIR =-I../userprog -I../threads
 CFLAGS = -G 0 -c $(INCDIR)
 
-all: array halt shell matmult sort newtest exectest exittest
+all: array halt shell matmult sort newtest exectest exittest echo
 
 
 
@@ -57,6 +57,13 @@ exittest.o: exittest.c
 exittest: exittest.o start.o
 	$(LD) $(LDFLAGS) start.o exittest.o -o exittest.coff
 	../bin/coff2noff exittest.coff exittest
+
+echo.o: echo.c
+	$(CC) $(CFLAGS) -c echo.c
+
+echo: echo.o start.o
+	$(LD) $(LDFLAGS) start.o echo.o -o echo.coff
+	../bin/coff2noff echo.coff echo
 
 newtest.o: newtest.c
 	$(CC) $(CFLAGS) -c newtest.c
