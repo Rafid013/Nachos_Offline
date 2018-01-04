@@ -15,11 +15,13 @@ class SynchConsole {
     //Semaphore *writeDoneSemaphore;
     static void ReadAvail(void *arg);
     static void WriteDone(void *arg);
+    Lock *lock;
 public:
     SynchConsole();
     ~SynchConsole();
     int Read(int bufferAddr, int size);
     bool Write(int bufferAddr, int size);
+    bool Write(char *buffer, int size);
 };
 
 //Semaphore* SynchConsole::readAvailSemaphore = new Semaphore("Read Available Semaphore", 0);

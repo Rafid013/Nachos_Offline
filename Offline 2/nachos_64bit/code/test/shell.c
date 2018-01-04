@@ -28,7 +28,7 @@ main()
 
 	if( i > 0 ) {
 		newProc = Exec(buffer);
-		Exit(newProc);
+		//Exit(newProc);
 	}
     }
 }

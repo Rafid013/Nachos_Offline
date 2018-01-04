@@ -29,6 +29,8 @@
 #include "../userprog/addrspace.h"
 #include "../threads/thread.h"
 #include "../threads/system.h"
+#include <string.h>
+
 
 //----------------------------------------------------------------------
 // ExceptionHandler
@@ -118,7 +120,9 @@ void ExecCall() {
 
 void ExitCall() {
     int exitStatus = machine->ReadRegister(4);
-    printf("Exit Status: %d\n", exitStatus);
+    char *buffer = new char[30];
+    sprintf(buffer, "Exit Status: %d\n", exitStatus);
+    synchConsole->Write(buffer, strlen(buffer));
     processTable->release(currentThread->threadIndex);
     SpaceId spaceId = currentThread->space->getSpaceId();
     spaceIdGenerator->releaseId(spaceId);
