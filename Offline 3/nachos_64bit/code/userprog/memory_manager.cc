@@ -2,18 +2,27 @@
 // Created by rafid on 12/28/17.
 //
 
+#include <cstdlib>
 #include "memory_manager.h"
 
 
 MemoryManager::MemoryManager(int numPages) {
+    totalPage = numPages;
     page_tracker = new BitMap(numPages);
     lock = new Lock("memory manager lock");
+    processMap = new int[numPages];
+    entries = new TranslationEntry*[numPages];
     freePageCount = numPages;
 }
 
 MemoryManager::~MemoryManager() {
     delete page_tracker;
     delete lock;
+    delete processMap;
+    for(int i = 0; i < totalPage; ++i) {
+        if(entries[i] != NULL) delete entries[i];
+    }
+    delete entries;
 }
 
 int MemoryManager::AllocPage() {
@@ -49,4 +58,24 @@ bool MemoryManager::checkAndDecreasePageCount(int pageToAlloc_Count) {
 
 bool MemoryManager::isAnyFreePage() {
     return (page_tracker->NumClear() > 0);
+}
+
+
+int MemoryManager::Alloc(int processNo, TranslationEntry *entry) {
+    lock->Acquire();
+    int retValue = page_tracker->Find();
+    if(retValue != -1) {
+        processMap[retValue] = processNo;
+        entries[retValue] = entry;
+    }
+    lock->Release();
+    return retValue;
+}
+
+
+int MemoryManager::AllocByForce() {
+    lock->Acquire();
+    int retValue = rand()%totalPage;
+    lock->Release();
+    return retValue;
 }

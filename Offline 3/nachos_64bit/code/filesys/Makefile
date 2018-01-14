@@ -1023,7 +1023,8 @@ exception.o: ../userprog/exception.cc /usr/include/stdc-predef.h \
  ../userprog/../threads/scheduler.h ../userprog/../threads/list.h \
  ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
  ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h ../userprog/table.h \
+ ../filesys/openfile.h ../userprog/../threads/synch.h \
+ ../userprog/../machine/translate.h ../userprog/table.h \
  /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
@@ -1437,14 +1438,15 @@ translate.o: ../machine/translate.cc /usr/include/stdc-predef.h \
  ../userprog/../machine/../threads/utility.h ../filesys/synchdisk.h \
  ../machine/disk.h ../threads/synch.h
 memory_manager.o: ../userprog/memory_manager.cc \
- /usr/include/stdc-predef.h ../userprog/memory_manager.h \
- ../userprog/bitmap.h ../threads/copyright.h ../threads/utility.h \
- ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
+ /usr/include/stdc-predef.h /usr/include/c++/5/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/lib/gcc/x86_64-linux-gnu/5/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/stdlib.h /usr/lib/gcc/x86_64-linux-gnu/5/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endian.h \
@@ -1459,9 +1461,11 @@ memory_manager.o: ../userprog/memory_manager.cc \
  /usr/include/x86_64-linux-gnu/bits/time.h \
  /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/stdio.h \
- /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
- /usr/lib/gcc/x86_64-linux-gnu/5/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ ../userprog/memory_manager.h ../userprog/bitmap.h ../threads/copyright.h \
+ ../threads/utility.h ../threads/copyright.h ../machine/sysdep.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/5/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../filesys/openfile.h ../userprog/../threads/synch.h \

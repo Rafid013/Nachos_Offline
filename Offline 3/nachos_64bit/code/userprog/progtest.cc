@@ -43,6 +43,11 @@ StartProcess(const char *filename)
     }
     space = new AddrSpace();
     space->Initialize(executable);
+
+
+    SpaceId spaceId = spaceIdGenerator->generate();
+    space->setSpaceId(spaceId);
+
     currentThread->space = space;
 
     int table_index = processTable->add((void*)currentThread);
@@ -53,8 +58,6 @@ StartProcess(const char *filename)
     space->InitRegisters();		// set the initial register values
     space->RestoreState();		// load page table register
 
-    SpaceId spaceId = spaceIdGenerator->generate();
-    space->setSpaceId(spaceId);
     machine->Run();			// jump to the user program
     ASSERT(false);			// machine->Run never returns;
 					// the address space exits

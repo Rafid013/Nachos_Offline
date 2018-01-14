@@ -29,7 +29,6 @@
 #include "../userprog/addrspace.h"
 #include "../threads/thread.h"
 #include "../threads/system.h"
-#include <string.h>
 
 
 //----------------------------------------------------------------------
@@ -55,13 +54,32 @@
 //	are in machine.h.
 //----------------------------------------------------------------------
 
+void pageFaultHandler() {
+    int faultAddr = machine->ReadRegister(39);
+    printf("Page Fault Exception at %d\n", faultAddr);
+    int physPageNo;
+    int virtualPageNo = faultAddr/PageSize;
+    if(memoryManager->isAnyFreePage()) {
+        physPageNo = memoryManager->Alloc(currentThread->space->getSpaceId(), &machine->pageTable[virtualPageNo]);
+        //physPageNo = memoryManager->AllocPage();
+    }
+    else {
+        physPageNo = memoryManager->AllocByForce();
+    }
+    currentThread->space->loadIntoFreePage(faultAddr, physPageNo);
+}
+
+
 bool readFileNameVirtualAddr(int addr, char *fileName) {
     int tempC;
     int i = 0;
     bool nullFound = false;
     while(!nullFound) {
         if(!machine->ReadMem(addr, 1, &tempC)) {
-            return false;
+            pageFaultHandler();
+            if(!machine->ReadMem(addr, 1, &tempC)) {
+                return false;
+            }
         }
         ++addr;
         if(tempC != '\0') {
@@ -103,7 +121,6 @@ void ExecCall() {
     AddrSpace *space = new AddrSpace();
     SpaceId spaceId = ExecCallInitialization(space);
 
-
     //write result to register
     machine->WriteRegister(2, spaceId);
     if (spaceId != 0) {
@@ -118,9 +135,7 @@ void ExecCall() {
 
 void ExitCall() {
     int exitStatus = machine->ReadRegister(4);
-    char *buffer = new char[30];
-    sprintf(buffer, "Exit Status: %d\n", exitStatus);
-    synchConsole->Write(buffer, strlen(buffer));
+    printf("Exit Status: %d\n", exitStatus);
     processTable->release(currentThread->threadIndex);
     SpaceId spaceId = currentThread->space->getSpaceId();
     spaceIdGenerator->releaseId(spaceId);
@@ -191,17 +206,7 @@ ExceptionHandler(ExceptionType which)
         WriteCall();
     }
     else if((which == PageFaultException)) {
-        int faultAddr = machine->ReadRegister(39);
-        printf("Page Fault Exception at %d\n", faultAddr);
-        int physPageNo;
-        if(memoryManager->isAnyFreePage()) {
-            physPageNo = memoryManager->AllocPage();
-        }
-        else {
-            //will force to free a page
-            //will do this later
-        }
-        currentThread->space->loadIntoFreePage(faultAddr, physPageNo);
+        pageFaultHandler();
         return;
     }
     else {
