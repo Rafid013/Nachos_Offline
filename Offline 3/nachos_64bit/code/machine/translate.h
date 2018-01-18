@@ -18,6 +18,7 @@
 #ifndef TLB_H
 #define TLB_H
 
+#include <ctime>
 #include "copyright.h"
 #include "utility.h"
 
@@ -40,6 +41,8 @@ class TranslationEntry {
 			// page is referenced or modified.
     bool dirty;         // This bit is set by the hardware every time the
 			// page is modified.
+
+    int time_stamp;
 };
 
 #endif

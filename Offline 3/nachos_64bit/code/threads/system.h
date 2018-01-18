@@ -12,10 +12,9 @@
 #include "utility.h"
 #include "thread.h"
 #include "scheduler.h"
-#include "interrupt.h"
-#include "stats.h"
-#include "timer.h"
-
+#include "../machine/stats.h"
+#include "../machine/timer.h"
+#include "../machine/interrupt.h"
 
 
 // Initialization and cleanup routines
@@ -38,6 +37,7 @@ extern Timer *timer;				// the hardware alarm clock
 #include "syscall.h"
 #include "spaceid_generator.h"
 #include "synch_console.h"
+
 extern SynchConsole *synchConsole;
 #define PROGRAM_COUNT 20
 extern Machine* machine;	// user program memory and registers

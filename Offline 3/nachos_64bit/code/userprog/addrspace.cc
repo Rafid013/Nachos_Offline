@@ -16,10 +16,13 @@
 // of liability and disclaimer of warranty provisions.
 
 #include <cstring>
+#include <cstdio>
 #include "copyright.h"
 #include "system.h"
 #include "addrspace.h"
 #include "../machine/machine.h"
+#include "../threads/system.h"
+#include "swap_page.h"
 
 
 //----------------------------------------------------------------------
@@ -71,6 +74,10 @@ bool AddrSpace::Initialize(OpenFile *executable) {
 
     //Executable Header related checks
 
+    swapPages = new SwapPage*[SwapSpaceSize];
+    for(int k = 0; k < SwapSpaceSize; ++k) swapPages[k] = NULL;
+    swapSpaceIndex = 0;
+
     this->executable = executable;
     unsigned int i, size;
 
@@ -91,9 +98,6 @@ bool AddrSpace::Initialize(OpenFile *executable) {
 
     //check if it fits
     //if(!memoryManager->checkAndDecreasePageCount(numPages)) return false;
-
-    if(numPages > NumPhysPages)
-        return false;
 
     DEBUG('a', "Initializing address space, num pages %d, size %d\n",
           numPages, size);
@@ -213,6 +217,11 @@ int AddrSpace::loadIntoFreePage(int addr, int physicalPageNo) {
     int virtualPageNo = addr/PageSize;
     pageTable[virtualPageNo].physicalPage = physicalPageNo;
     pageTable[virtualPageNo].valid = true;
+    pageTable[virtualPageNo].time_stamp = stats->totalTicks;
+
+    printf("Virtual Page No. for Address %d is %d\n", addr, virtualPageNo);
+    printf("Physical Page No. for Address %d is %d\n", addr, physicalPageNo);
+
     loadSegment(virtualPageNo, physicalPageNo);
     return 0;
 }
@@ -242,6 +251,8 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
         //load code segment starting from physical address
         executable->ReadAt(machine->mainMemory + physAddr, codeSize, inFileAddr);
 
+        printf("Loaded code segment from %d to %d\n", startingAddr, startingAddr + codeSize - 1);
+
         //if page is not fully loaded
         if(codeSize < PageSize) {
             //size of the data segment to be loaded
@@ -249,17 +260,25 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
             if(noffH->initData.size < PageSize - codeSize) dataSize = noffH->initData.size;
             else dataSize = PageSize - codeSize;
 
-            //in file address for data segment start
-            inFileAddr = noffH->initData.inFileAddr;
+            if(dataSize != 0) {
 
-            //load data segment starting from where code segment finished
-            executable->ReadAt(machine->mainMemory + (physAddr + codeSize), dataSize, inFileAddr);
+                //in file address for data segment start
+                inFileAddr = noffH->initData.inFileAddr;
+
+                //load data segment starting from where code segment finished
+                executable->ReadAt(machine->mainMemory + (physAddr + codeSize), dataSize, inFileAddr);
+
+                printf("Loaded data segment from %d to %d\n", noffH->initData.virtualAddr,
+                       noffH->initData.virtualAddr + dataSize - 1);
+            }
         }
 
         //if page is still not fully loaded
         if(codeSize + dataSize < PageSize) {
             //zero out the remaining page
             bzero(machine->mainMemory + (physAddr + codeSize + dataSize), PageSize - codeSize - dataSize);
+
+            printf("Zeroed from %d to %d\n", startingAddr + codeSize + dataSize, startingAddr + PageSize - 1);
         }
     }
 
@@ -278,15 +297,64 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
         //load data segment starting from physical address
         executable->ReadAt(machine->mainMemory + physAddr, dataSize, inFileAddr);
 
+        printf("Loaded data segment from %d to %d\n", startingAddr, startingAddr + dataSize - 1);
+
         //if page is not fully loaded
         if(dataSize < PageSize) {
             //zero out the remaining page
             bzero(machine->mainMemory + (physAddr + dataSize), PageSize - dataSize);
+
+            printf("Zeroed from %d to %d\n", startingAddr + dataSize, startingAddr + PageSize - 1);
         }
     }
 
     //if in uninit segment and other cases
     else {
         bzero(machine->mainMemory + physAddr, PageSize);
+
+        printf("Zeroed from %d to %d\n", startingAddr, startingAddr + PageSize - 1);
     }
+}
+
+
+void AddrSpace::saveIntoSwapSpace(int vpn) {
+
+    pageTable[vpn].valid = false;
+
+    int ppn = pageTable[vpn].physicalPage;
+
+    char pageToBeSwapped[PageSize];
+
+    for(int i = 0; i < PageSize; ++i) {
+        pageToBeSwapped[i] = machine->mainMemory[ppn*PageSize + i];
+    }
+
+    SwapPage *swapPage = new SwapPage(vpn, pageToBeSwapped);
+    swapPages[swapSpaceIndex++] = swapPage;
+
+}
+
+
+void AddrSpace::loadFromSwapSpace(int vpn) {
+    for(int i = 0; i < SwapSpaceSize; ++i) {
+        SwapPage *swapPage = swapPages[i];
+        if(swapPage != NULL && swapPage->getVpn() == vpn) {
+            char *page = swapPage->getPage();
+            for(int j = 0; j < PageSize; ++j) {
+                machine->mainMemory[pageTable[vpn].physicalPage*PageSize + j] = page[j];
+            }
+            pageTable[vpn].valid = true;
+            break;
+        }
+    }
+}
+
+
+bool AddrSpace::isSwapPageExists(int vpn) {
+    for(int i = 0; i < SwapSpaceSize; ++i) {
+        SwapPage *swapPage = swapPages[i];
+        if(swapPage != NULL && swapPage->getVpn() == vpn) return true;
+    }
+
+    return false;
 }

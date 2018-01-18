@@ -18,17 +18,17 @@
 #include "../machine/translate.h"
 #include "../filesys/openfile.h"
 #include "../bin/noff.h"
+#include "swap_page.h"
 
 #define UserStackSize		1024 	// increase this as necessary!
+
+#define SwapSpaceSize 256
 
 typedef int SpaceId;
 
 class AddrSpace {
   public:
     AddrSpace();
-    AddrSpace(OpenFile *executable);	// Create an address space,
-					// initializing it with the program
-					// stored in the file "executable"
     ~AddrSpace();			// De-allocate an address space
 
     void InitRegisters();		// Initialize user-level CPU registers,
@@ -44,6 +44,12 @@ class AddrSpace {
     int loadIntoFreePage(int addr, int physicalPageNo);
     void loadSegment(int addr, int physicalPageNo);
 
+    void saveIntoSwapSpace(int vpn);
+
+    void loadFromSwapSpace(int vpn);
+
+    bool isSwapPageExists(int vpn);
+
   private:
     TranslationEntry *pageTable;	// Assume linear page table translation
 					// for now!
@@ -52,6 +58,10 @@ class AddrSpace {
     SpaceId spaceId;
     OpenFile *executable;
     NoffHeader *noffH;
+    SwapPage **swapPages;
+
+    int swapSpaceIndex;
+
 };
 
 #endif // ADDRSPACE_H

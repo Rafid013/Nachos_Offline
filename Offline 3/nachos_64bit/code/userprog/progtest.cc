@@ -13,13 +13,11 @@
 #include "console.h"
 #include "synch.h"
 #include "addrspace.h"
-#include "syscall.h"
 #include "spaceid_generator.h"
 #include "table.h"
 #include "memory_manager.h"
 #include "synch_console.h"
-
-
+#include "../machine/machine.h"
 
 //----------------------------------------------------------------------
 //  StartProcess

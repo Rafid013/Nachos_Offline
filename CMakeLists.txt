@@ -842,4 +842,4 @@ add_executable(Nachos_Offline
         "Offline 3/nachos_64bit/NachosPrimer.pdf"
         "Offline 3/Nachos 3 Guidelines.pdf"
         CMakeLists.txt
-        README.md)
+        README.md "Offline 3/nachos_64bit/code/userprog/swap_page.cc" "Offline 3/nachos_64bit/code/userprog/swap_page.h")

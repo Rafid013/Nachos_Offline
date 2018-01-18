@@ -59,14 +59,64 @@ void pageFaultHandler() {
     printf("Page Fault Exception at %d\n", faultAddr);
     int physPageNo;
     int virtualPageNo = faultAddr/PageSize;
-    if(memoryManager->isAnyFreePage()) {
-        physPageNo = memoryManager->Alloc(currentThread->space->getSpaceId(), &machine->pageTable[virtualPageNo]);
-        //physPageNo = memoryManager->AllocPage();
+
+    if(!currentThread->space->isSwapPageExists(virtualPageNo)) {
+        printf("No Swap Page for this address\n");
+        if (memoryManager->isAnyFreePage()) {
+
+            physPageNo = memoryManager->Alloc(currentThread->threadIndex, &machine->pageTable[virtualPageNo]);
+            printf("Allocating a free page\n");
+        } else {
+            printf("No free page available\n");
+            physPageNo = memoryManager->AllocByForce();
+
+            TranslationEntry *entry = memoryManager->pageTableEntry_For_ppn(physPageNo);
+
+
+            int threadIndex = memoryManager->process_for_ppn(physPageNo);
+
+
+            Thread *thread = (Thread*)processTable->get(threadIndex);
+
+            int vpnToBeSwapped = entry->virtualPage;
+
+            thread->space->saveIntoSwapSpace(vpnToBeSwapped);
+            printf("Page moved to Swap Space from Main Memory\n");
+            memoryManager->saveID_Entry_For_ppn(physPageNo, currentThread->threadIndex,
+                                                &machine->pageTable[virtualPageNo]);
+        }
+        currentThread->space->loadIntoFreePage(faultAddr, physPageNo);
     }
     else {
-        physPageNo = memoryManager->AllocByForce();
+        printf("Page is already in Swap Space\n");
+
+        //get the physical page for the virtual page
+        int ppn = machine->pageTable[virtualPageNo].physicalPage;
+
+        if(memoryManager->pageIsAllocated(ppn)) {
+            //get the all the info corresponding to the current owner of ppn
+            TranslationEntry *entry = memoryManager->pageTableEntry_For_ppn(ppn);
+            int threadIndex = memoryManager->process_for_ppn(ppn);
+
+            int vpn_to_be_saved = entry->virtualPage;
+
+            Thread *thread = (Thread *) processTable->get(threadIndex);
+
+            //swap out the vpn for the current owner first
+            thread->space->saveIntoSwapSpace(vpn_to_be_saved);
+        }
+
+
+        //save id and entry for the current thread for this ppn
+        memoryManager->saveID_Entry_For_ppn(ppn, currentThread->threadIndex,
+                                            &machine->pageTable[virtualPageNo]);
+
+        //load from swap space
+        currentThread->space->loadFromSwapSpace(virtualPageNo);
+
+        printf("Page moved from Swap Space to Main Memory\n");
     }
-    currentThread->space->loadIntoFreePage(faultAddr, physPageNo);
+    printf("\n\n");
 }
 
 
