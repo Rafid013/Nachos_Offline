@@ -64,10 +64,8 @@ bool MemoryManager::isAnyFreePage() {
 int MemoryManager::Alloc(int processNo, TranslationEntry *entry) {
     lock->Acquire();
     int retValue = page_tracker->Find();
-    if(retValue != -1) {
-        processMap[retValue] = processNo;
-        entries[retValue] = entry;
-    }
+    processMap[retValue] = processNo;
+    entries[retValue] = entry;
     lock->Release();
     return retValue;
 }
@@ -95,7 +93,7 @@ int MemoryManager::process_for_ppn(int ppn)  {
 }
 
 
-TranslationEntry* MemoryManager::pageTableEntry_For_ppn(int ppn) {
+TranslationEntry* MemoryManager::pageTableEntry_for_ppn(int ppn) {
     lock->Acquire();
     TranslationEntry *retEntry = entries[ppn];
     lock->Release();

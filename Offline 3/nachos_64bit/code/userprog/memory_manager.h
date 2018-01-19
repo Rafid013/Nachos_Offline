@@ -32,7 +32,7 @@ public:
     //returns the process id allocated to physical page no
     int process_for_ppn(int ppn);
 
-    TranslationEntry* pageTableEntry_For_ppn(int ppn);
+    TranslationEntry* pageTableEntry_for_ppn(int ppn);
 
     void saveID_Entry_For_ppn(int ppn, int id, TranslationEntry *entry);
 

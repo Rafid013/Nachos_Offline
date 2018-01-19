@@ -81,8 +81,7 @@ USERPROG_H = ../userprog/addrspace.h\
 	../userprog/memory_manager.h\
 	../userprog/table.h\
 	../userprog/spaceid_generator.h\
-	../userprog/synch_console.h\
-	../userprog/swap_page.h
+	../userprog/synch_console.h
 
 USERPROG_C = ../userprog/addrspace.cc\
 	../userprog/bitmap.cc\
@@ -95,12 +94,10 @@ USERPROG_C = ../userprog/addrspace.cc\
 	../userprog/memory_manager.cc\
 	../userprog/table.cc\
 	../userprog/spaceid_generator.cc\
-	../userprog/synch_console.cc\
-	../userprog/swap_page.cc
+	../userprog/synch_console.cc
 
 USERPROG_O = addrspace.o bitmap.o exception.o progtest.o console.o machine.o \
-	mipssim.o translate.o memory_manager.o table.o spaceid_generator.o synch_console.o\
-	swap_page.o
+	mipssim.o translate.o memory_manager.o table.o spaceid_generator.o synch_console.o
 
 VM_H = 
 VM_C = 

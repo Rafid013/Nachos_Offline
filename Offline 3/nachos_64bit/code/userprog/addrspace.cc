@@ -16,13 +16,10 @@
 // of liability and disclaimer of warranty provisions.
 
 #include <cstring>
-#include <cstdio>
 #include "copyright.h"
 #include "system.h"
 #include "addrspace.h"
 #include "../machine/machine.h"
-#include "../threads/system.h"
-#include "swap_page.h"
 
 
 //----------------------------------------------------------------------
@@ -72,12 +69,15 @@ AddrSpace::AddrSpace() {
 
 bool AddrSpace::Initialize(OpenFile *executable) {
 
+
+    for(int i = 0; i < SWAP_SIZE; ++i) {
+        swapSpace[i] = new char[PageSize];
+        swapOccupied[i] = false;
+    }
+
+
+
     //Executable Header related checks
-
-    swapPages = new SwapPage*[SwapSpaceSize];
-    for(int k = 0; k < SwapSpaceSize; ++k) swapPages[k] = NULL;
-    swapSpaceIndex = 0;
-
     this->executable = executable;
     unsigned int i, size;
 
@@ -217,7 +217,6 @@ int AddrSpace::loadIntoFreePage(int addr, int physicalPageNo) {
     int virtualPageNo = addr/PageSize;
     pageTable[virtualPageNo].physicalPage = physicalPageNo;
     pageTable[virtualPageNo].valid = true;
-    pageTable[virtualPageNo].time_stamp = stats->totalTicks;
 
     printf("Virtual Page No. for Address %d is %d\n", addr, virtualPageNo);
     printf("Physical Page No. for Address %d is %d\n", addr, physicalPageNo);
@@ -282,9 +281,9 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
         }
     }
 
-    //check if the starting address is in data segment
+        //check if the starting address is in data segment
     else if(startingAddr >= noffH->initData.virtualAddr
-        && startingAddr < noffH->initData.virtualAddr + noffH->initData.size) {
+            && startingAddr < noffH->initData.virtualAddr + noffH->initData.size) {
         //size of the data segment to be loaded
         dataSize = 0;
         if(noffH->initData.size + noffH->initData.virtualAddr - startingAddr < PageSize)
@@ -308,7 +307,7 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
         }
     }
 
-    //if in uninit segment and other cases
+        //if in uninit segment and other cases
     else {
         bzero(machine->mainMemory + physAddr, PageSize);
 
@@ -323,38 +322,24 @@ void AddrSpace::saveIntoSwapSpace(int vpn) {
 
     int ppn = pageTable[vpn].physicalPage;
 
-    char pageToBeSwapped[PageSize];
-
+    printf("Saving for page %d\n", vpn);
     for(int i = 0; i < PageSize; ++i) {
-        pageToBeSwapped[i] = machine->mainMemory[ppn*PageSize + i];
+        swapSpace[vpn][i] = machine->mainMemory[ppn*PageSize + i];
     }
-
-    SwapPage *swapPage = new SwapPage(vpn, pageToBeSwapped);
-    swapPages[swapSpaceIndex++] = swapPage;
-
+    swapOccupied[vpn] = true;
 }
 
 
 void AddrSpace::loadFromSwapSpace(int vpn) {
-    for(int i = 0; i < SwapSpaceSize; ++i) {
-        SwapPage *swapPage = swapPages[i];
-        if(swapPage != NULL && swapPage->getVpn() == vpn) {
-            char *page = swapPage->getPage();
-            for(int j = 0; j < PageSize; ++j) {
-                machine->mainMemory[pageTable[vpn].physicalPage*PageSize + j] = page[j];
-            }
-            pageTable[vpn].valid = true;
-            break;
-        }
+    int ppn = pageTable[vpn].physicalPage*PageSize;
+    printf("Loading for page %d\n", vpn);
+    for(int i = 0; i < PageSize; ++i) {
+        machine->mainMemory[ppn + i] = swapSpace[vpn][i];
     }
+    pageTable[vpn].valid = true;
 }
 
 
 bool AddrSpace::isSwapPageExists(int vpn) {
-    for(int i = 0; i < SwapSpaceSize; ++i) {
-        SwapPage *swapPage = swapPages[i];
-        if(swapPage != NULL && swapPage->getVpn() == vpn) return true;
-    }
-
-    return false;
+    return swapOccupied[vpn];
 }
