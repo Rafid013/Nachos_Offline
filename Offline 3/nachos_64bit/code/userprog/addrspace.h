@@ -48,7 +48,7 @@ class AddrSpace {
 
     void saveIntoSwapSpace(int vpn);
 
-    void loadFromSwapSpace(int vpn);
+    void loadFromSwapSpace(int vpn, int ppn);
 
     bool isSwapPageExists(int vpn);
 

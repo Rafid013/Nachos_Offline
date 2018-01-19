@@ -130,8 +130,9 @@ bool AddrSpace::Initialize(OpenFile *executable) {
 
 void AddrSpace::releasePageTable() {
     for(int i = 0; i < numPages; ++i)
-        if(pageTable[i].valid)
+        if(pageTable[i].valid) {
             memoryManager->FreePage(pageTable[i].physicalPage);
+        }
 }
 
 //----------------------------------------------------------------------
@@ -215,13 +216,16 @@ void AddrSpace::RestoreState()
 
 int AddrSpace::loadIntoFreePage(int addr, int physicalPageNo) {
     int virtualPageNo = addr/PageSize;
-    pageTable[virtualPageNo].physicalPage = physicalPageNo;
-    pageTable[virtualPageNo].valid = true;
 
     printf("Virtual Page No. for Address %d is %d\n", addr, virtualPageNo);
     printf("Physical Page No. for Address %d is %d\n", addr, physicalPageNo);
 
-    loadSegment(virtualPageNo, physicalPageNo);
+    if(isSwapPageExists(virtualPageNo)) loadFromSwapSpace(virtualPageNo, physicalPageNo);
+    else loadSegment(virtualPageNo, physicalPageNo);
+
+    pageTable[virtualPageNo].physicalPage = physicalPageNo;
+    pageTable[virtualPageNo].valid = true;
+
     return 0;
 }
 
@@ -317,26 +321,28 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
 
 
 void AddrSpace::saveIntoSwapSpace(int vpn) {
-
     pageTable[vpn].valid = false;
+    if(pageTable[vpn].dirty || !isSwapPageExists(vpn)) {
+        pageTable[vpn].dirty = false;
 
-    int ppn = pageTable[vpn].physicalPage;
+        int ppn = pageTable[vpn].physicalPage;
 
-    printf("Saving for page %d\n", vpn);
-    for(int i = 0; i < PageSize; ++i) {
-        swapSpace[vpn][i] = machine->mainMemory[ppn*PageSize + i];
+        printf("Saving for page %d\n", vpn);
+        for (int i = 0; i < PageSize; ++i) {
+            swapSpace[vpn][i] = machine->mainMemory[ppn * PageSize + i];
+        }
+        swapOccupied[vpn] = true;
     }
-    swapOccupied[vpn] = true;
 }
 
 
-void AddrSpace::loadFromSwapSpace(int vpn) {
-    int ppn = pageTable[vpn].physicalPage*PageSize;
+void AddrSpace::loadFromSwapSpace(int vpn, int ppn) {
     printf("Loading for page %d\n", vpn);
     for(int i = 0; i < PageSize; ++i) {
-        machine->mainMemory[ppn + i] = swapSpace[vpn][i];
+        machine->mainMemory[ppn*PageSize + i] = swapSpace[vpn][i];
     }
     pageTable[vpn].valid = true;
+    pageTable[vpn].physicalPage = ppn;
 }
 
 

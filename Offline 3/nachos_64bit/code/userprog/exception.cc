@@ -59,66 +59,28 @@ void pageFaultHandler() {
     printf("Page Fault Exception at %d\n", faultAddr);
     int physPageNo;
     int virtualPageNo = faultAddr/PageSize;
+    printf("No Swap Page for this address\n");
+    if (memoryManager->isAnyFreePage()) {
+        physPageNo = memoryManager->Alloc(currentThread->threadIndex, &machine->pageTable[virtualPageNo]);
+        printf("Allocated a free page\n");
+    } else {
+        printf("No free page available\n");
+        physPageNo = memoryManager->AllocByForce();
 
-    if(!currentThread->space->isSwapPageExists(virtualPageNo)) {
-        printf("No Swap Page for this address\n");
-        if (memoryManager->isAnyFreePage()) {
-            physPageNo = memoryManager->Alloc(currentThread->threadIndex, &machine->pageTable[virtualPageNo]);
-            printf("Allocated a free page\n");
-        } else {
-            printf("No free page available\n");
-            physPageNo = memoryManager->AllocByForce();
+        //get the corresponding translation entry for the ppn held by the owner thread
+        TranslationEntry *entry = memoryManager->pageTableEntry_for_ppn(physPageNo);
 
-            //get the corresponding translation entry for the ppn held by the owner thread
-            TranslationEntry *entry = memoryManager->pageTableEntry_for_ppn(physPageNo);
+        //get the thread index in process table for the owner thread
+        int threadIndex = memoryManager->process_for_ppn(physPageNo);
+        Thread *thread = (Thread*)processTable->get(threadIndex);
 
-            //get the thread index in process table for the owner thread
-            int threadIndex = memoryManager->process_for_ppn(physPageNo);
-            Thread *thread = (Thread*)processTable->get(threadIndex);
+        int vpn_for_current_owner = entry->virtualPage;
 
-            int vpn_for_current_owner = entry->virtualPage;
-
-            if(entry->dirty || !thread->space->isSwapPageExists(vpn_for_current_owner)) {
-                thread->space->saveIntoSwapSpace(vpn_for_current_owner);
-                printf("Page saved in Swap Space\n");
-            }
-            memoryManager->saveID_Entry_For_ppn(physPageNo, currentThread->threadIndex,
-                                                &machine->pageTable[virtualPageNo]);
-        }
-        currentThread->space->loadIntoFreePage(faultAddr, physPageNo);
-    }
-    else {
-        printf("Page is already in Swap Space\n");
-
-        //get the physical page for the virtual page
-        physPageNo = machine->pageTable[virtualPageNo].physicalPage;
-
-        if(memoryManager->pageIsAllocated(physPageNo)) {
-            //get the corresponding translation entry for the ppn held by the owner thread
-            TranslationEntry *entry = memoryManager->pageTableEntry_for_ppn(physPageNo);
-
-            //get the thread index in process table for the owner thread
-            int threadIndex = memoryManager->process_for_ppn(physPageNo);
-            Thread *thread = (Thread*)processTable->get(threadIndex);
-
-            int vpn_for_current_owner = entry->virtualPage;
-
-            if(entry->dirty || !thread->space->isSwapPageExists(vpn_for_current_owner)) {
-                thread->space->saveIntoSwapSpace(vpn_for_current_owner);
-                printf("Page saved in Swap Space\n");
-            }
-        }
-
-
-        //save id and entry for the current thread for this ppn
+        currentThread->space->saveIntoSwapSpace(vpn_for_current_owner);
         memoryManager->saveID_Entry_For_ppn(physPageNo, currentThread->threadIndex,
                                             &machine->pageTable[virtualPageNo]);
-
-        //load from swap space
-        currentThread->space->loadFromSwapSpace(virtualPageNo);
-
-        printf("Page loaded from Swap Space\n");
     }
+    currentThread->space->loadIntoFreePage(faultAddr, physPageNo);
     printf("\n\n");
 }
 
@@ -129,7 +91,7 @@ bool readFileNameVirtualAddr(int addr, char *fileName) {
     bool nullFound = false;
     while(!nullFound) {
         if(!machine->ReadMem(addr, 1, &tempC)) {
-            pageFaultHandler();
+            //pageFaultHandler();
             if(!machine->ReadMem(addr, 1, &tempC)) {
                 return false;
             }
@@ -188,7 +150,7 @@ void ExecCall() {
 
 void ExitCall() {
     int exitStatus = machine->ReadRegister(4);
-    printf("Exit Status: %d\n", exitStatus);
+    printf("Exit Status: %d\n\n", exitStatus);
     processTable->release(currentThread->threadIndex);
     SpaceId spaceId = currentThread->space->getSpaceId();
     spaceIdGenerator->releaseId(spaceId);
