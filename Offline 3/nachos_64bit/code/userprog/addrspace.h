@@ -21,6 +21,8 @@
 
 #define UserStackSize		1024 	// increase this as necessary!
 
+#define SWAP_SIZE 256
+
 typedef int SpaceId;
 
 class AddrSpace {
@@ -44,6 +46,12 @@ class AddrSpace {
     int loadIntoFreePage(int addr, int physicalPageNo);
     void loadSegment(int addr, int physicalPageNo);
 
+    void saveIntoSwapSpace(int vpn);
+
+    void loadFromSwapSpace(int vpn);
+
+    bool isSwapPageExists(int vpn);
+
   private:
     TranslationEntry *pageTable;	// Assume linear page table translation
 					// for now!
@@ -52,6 +60,10 @@ class AddrSpace {
     SpaceId spaceId;
     OpenFile *executable;
     NoffHeader *noffH;
+
+    char *swapSpace[SWAP_SIZE];
+    bool swapOccupied[SWAP_SIZE];
+
 };
 
 #endif // ADDRSPACE_H

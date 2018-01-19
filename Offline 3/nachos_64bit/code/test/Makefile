@@ -35,7 +35,7 @@ CPP = gcc -E
 INCDIR =-I../userprog -I../threads
 CFLAGS = -G 0 -c $(INCDIR)
 
-all: array halt shell matmult sort newtest exectest exittest echo
+all: array halt shell matmult sort newtest exectest exittest echo snake
 
 
 
@@ -43,6 +43,14 @@ start.o: start.s ../userprog/syscall.h
 	$(CPP) $(CPPFLAGS) start.c > strt.s
 	$(AS) $(ASFLAGS) -o start.o strt.s
 	rm strt.s
+
+snake.o: snake.c
+	$(CC) $(CFLAGS) -c snake.c
+
+snake: snake.o start.o
+	$(LD) $(LDFLAGS) start.o snake.o -o snake.coff
+	../bin/coff2noff snake.coff snake
+
 
 exectest.o: exectest.c
 	$(CC) $(CFLAGS) -c exectest.c

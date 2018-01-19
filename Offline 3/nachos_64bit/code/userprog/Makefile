@@ -55,20 +55,21 @@ main.o: ../threads/main.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/system.h ../threads/thread.h ../machine/machine.h \
- ../threads/utility.h ../machine/translate.h ../machine/disk.h \
- ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h \
- ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
- ../userprog/../threads/list.h ../userprog/table.h \
- /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ ../threads/utility.h ../machine/translate.h /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
+ ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
+ ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
+ ../userprog/../threads/thread.h ../userprog/../threads/list.h \
+ ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -130,19 +131,21 @@ scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/thread.h ../machine/machine.h ../threads/utility.h \
- ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
- ../filesys/filesys.h ../filesys/openfile.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
  ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/system.h ../machine/interrupt.h \
- ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ ../userprog/../bin/noff.h ../threads/system.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
  ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
  ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
  ../userprog/../threads/thread.h ../userprog/../threads/list.h \
  ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -204,18 +207,20 @@ synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../machine/machine.h ../threads/utility.h ../machine/translate.h \
- ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
- ../filesys/openfile.h ../userprog/../machine/translate.h \
- ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
- ../threads/list.h ../threads/system.h ../threads/scheduler.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h ../userprog/table.h \
- /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/list.h ../threads/system.h \
+ ../threads/scheduler.h ../threads/../machine/stats.h \
+ ../threads/../machine/timer.h ../threads/../machine/interrupt.h \
+ ../threads/list.h ../userprog/memory_manager.h ../userprog/bitmap.h \
+ ../filesys/openfile.h ../userprog/../threads/synch.h ../userprog/table.h \
+ /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -276,20 +281,21 @@ system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/thread.h ../machine/machine.h ../threads/utility.h \
- ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
- ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h \
- ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
- ../userprog/../threads/list.h ../userprog/table.h \
- /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
+ ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
+ ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
+ ../userprog/../threads/thread.h ../userprog/../threads/list.h \
+ ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -350,19 +356,21 @@ thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../machine/machine.h ../threads/utility.h ../machine/translate.h \
- ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
- ../filesys/openfile.h ../userprog/../machine/translate.h \
- ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
- ../threads/switch.h ../threads/synch.h ../threads/list.h \
- ../threads/system.h ../threads/scheduler.h ../machine/interrupt.h \
- ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/switch.h ../threads/synch.h \
+ ../threads/list.h ../threads/system.h ../threads/scheduler.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
  ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
  ../userprog/../threads/synch.h ../userprog/table.h \
  /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -450,20 +458,21 @@ threadtest.o: ../threads/threadtest.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/thread.h ../machine/machine.h ../threads/utility.h \
- ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
- ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h \
- ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
- ../userprog/../threads/list.h ../userprog/table.h \
- /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
+ ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
+ ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
+ ../userprog/../threads/thread.h ../userprog/../threads/list.h \
+ ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -525,19 +534,21 @@ interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/system.h ../threads/thread.h ../machine/machine.h \
- ../threads/utility.h ../machine/translate.h ../machine/disk.h \
+ ../threads/utility.h ../machine/translate.h /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
  ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
  ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
- ../machine/interrupt.h ../machine/stats.h ../machine/timer.h \
- ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../userprog/memory_manager.h \
+ ../userprog/bitmap.h ../filesys/openfile.h \
  ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
  ../userprog/../threads/thread.h ../userprog/../threads/list.h \
  ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -632,19 +643,21 @@ sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  ../threads/list.h ../threads/copyright.h ../threads/utility.h \
  ../machine/sysdep.h ../threads/system.h ../threads/thread.h \
  ../machine/machine.h ../threads/utility.h ../machine/translate.h \
- ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
- ../filesys/openfile.h ../userprog/../machine/translate.h \
- ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
- ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
- ../machine/stats.h ../machine/timer.h ../userprog/memory_manager.h \
+ /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../userprog/memory_manager.h \
  ../userprog/bitmap.h ../filesys/openfile.h \
  ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
  ../userprog/../threads/thread.h ../userprog/../threads/list.h \
  ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -733,20 +746,21 @@ timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/system.h ../threads/utility.h ../threads/thread.h \
- ../machine/machine.h ../machine/translate.h ../machine/disk.h \
- ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h \
- ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
- ../userprog/../threads/list.h ../userprog/table.h \
- /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ ../machine/machine.h ../machine/translate.h /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
+ ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
+ ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
+ ../userprog/../threads/thread.h ../userprog/../threads/list.h \
+ ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -808,20 +822,21 @@ preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/thread.h ../machine/machine.h ../threads/utility.h \
- ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
- ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h \
- ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
- ../userprog/../threads/list.h ../userprog/table.h \
- /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
+ ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
+ ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
+ ../userprog/../threads/thread.h ../userprog/../threads/list.h \
+ ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -899,15 +914,17 @@ addrspace.o: ../userprog/addrspace.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h ../threads/thread.h \
  ../machine/machine.h ../threads/utility.h ../machine/translate.h \
+ /usr/include/c++/5/ctime /usr/include/x86_64-linux-gnu/bits/timex.h \
  ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
  ../filesys/openfile.h ../userprog/../machine/translate.h \
  ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
- ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
- ../threads/list.h ../machine/stats.h ../machine/timer.h \
- ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
- ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
- ../userprog/../threads/thread.h ../userprog/../threads/list.h \
- ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ ../threads/scheduler.h ../threads/list.h ../threads/../machine/stats.h \
+ ../threads/../machine/timer.h ../threads/../machine/interrupt.h \
+ ../threads/list.h ../userprog/memory_manager.h ../userprog/bitmap.h \
+ ../filesys/openfile.h ../userprog/../threads/synch.h \
+ ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
+ ../userprog/../threads/list.h ../userprog/table.h \
+ /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
@@ -1001,7 +1018,8 @@ exception.o: ../userprog/exception.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/string.h \
- ../userprog/../machine/translate.h ../userprog/../machine/disk.h \
+ ../userprog/../machine/translate.h /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../userprog/../machine/disk.h \
  ../userprog/../filesys/openfile.h ../userprog/../userprog/addrspace.h \
  ../filesys/filesys.h ../filesys/openfile.h \
  ../userprog/../userprog/../machine/translate.h \
@@ -1011,11 +1029,12 @@ exception.o: ../userprog/exception.cc /usr/include/stdc-predef.h \
  ../machine/machine.h ../userprog/addrspace.h \
  ../userprog/../threads/system.h ../userprog/../threads/thread.h \
  ../userprog/../threads/scheduler.h ../userprog/../threads/list.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h \
- ../userprog/../machine/translate.h ../userprog/table.h \
- /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ ../userprog/../threads/../machine/stats.h \
+ ../userprog/../threads/../machine/timer.h \
+ ../userprog/../threads/../machine/interrupt.h ../threads/list.h \
+ ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
+ ../userprog/../threads/synch.h ../userprog/../machine/translate.h \
+ ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
@@ -1077,20 +1096,21 @@ progtest.o: ../userprog/progtest.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../threads/thread.h ../machine/machine.h ../threads/utility.h \
- ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
- ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
- ../filesys/openfile.h ../userprog/../threads/synch.h \
- ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
- ../userprog/../threads/list.h ../userprog/table.h \
- /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
+ ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
+ ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
+ ../userprog/../threads/thread.h ../userprog/../threads/list.h \
+ ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -1123,9 +1143,10 @@ progtest.o: ../userprog/progtest.cc /usr/include/stdc-predef.h \
  ../userprog/syscall.h ../userprog/spaceid_generator.h \
  ../userprog/synch_console.h ../userprog/../machine/console.h \
  ../userprog/../machine/../threads/utility.h ../machine/console.h \
- ../threads/synch.h ../userprog/addrspace.h ../userprog/syscall.h \
+ ../threads/synch.h ../userprog/addrspace.h \
  ../userprog/spaceid_generator.h ../userprog/table.h \
- ../userprog/memory_manager.h ../userprog/synch_console.h
+ ../userprog/memory_manager.h ../userprog/synch_console.h \
+ ../userprog/../machine/machine.h
 console.o: ../machine/console.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../machine/console.h ../threads/utility.h \
  ../threads/copyright.h ../machine/sysdep.h /usr/include/stdlib.h \
@@ -1155,19 +1176,21 @@ console.o: ../machine/console.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../machine/../threads/utility.h ../threads/system.h ../threads/utility.h \
  ../threads/thread.h ../machine/machine.h ../machine/translate.h \
- ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
- ../filesys/openfile.h ../userprog/../machine/translate.h \
- ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
- ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
- ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
  ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
  ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
  ../userprog/../threads/thread.h ../userprog/../threads/list.h \
  ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -1226,21 +1249,23 @@ machine.o: ../machine/machine.cc /usr/include/stdc-predef.h \
  /usr/lib/gcc/x86_64-linux-gnu/5/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
- ../machine/translate.h ../machine/disk.h ../threads/system.h \
- ../threads/utility.h ../threads/thread.h ../machine/machine.h \
- ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
- ../machine/interrupt.h ../threads/list.h ../machine/stats.h \
- ../machine/timer.h ../userprog/memory_manager.h ../userprog/bitmap.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../threads/system.h ../threads/utility.h ../threads/thread.h \
+ ../machine/machine.h ../userprog/addrspace.h ../filesys/filesys.h \
+ ../filesys/openfile.h ../userprog/../machine/translate.h \
+ ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
+ ../threads/scheduler.h ../threads/list.h ../threads/../machine/stats.h \
+ ../threads/../machine/timer.h ../threads/../machine/interrupt.h \
+ ../threads/list.h ../userprog/memory_manager.h ../userprog/bitmap.h \
  ../filesys/openfile.h ../userprog/../threads/synch.h \
  ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
  ../userprog/../threads/list.h ../userprog/table.h \
  /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -1300,21 +1325,23 @@ mipssim.o: ../machine/mipssim.cc /usr/include/stdc-predef.h \
  /usr/lib/gcc/x86_64-linux-gnu/5/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
- ../machine/translate.h ../machine/disk.h ../machine/mipssim.h \
- ../threads/system.h ../threads/utility.h ../threads/thread.h \
- ../machine/machine.h ../userprog/addrspace.h ../filesys/filesys.h \
- ../filesys/openfile.h ../userprog/../machine/translate.h \
- ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
- ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
- ../threads/list.h ../machine/stats.h ../machine/timer.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../machine/mipssim.h ../threads/system.h ../threads/utility.h \
+ ../threads/thread.h ../machine/machine.h ../userprog/addrspace.h \
+ ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/scheduler.h ../threads/list.h \
+ ../threads/../machine/stats.h ../threads/../machine/timer.h \
+ ../threads/../machine/interrupt.h ../threads/list.h \
  ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
  ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
  ../userprog/../threads/thread.h ../userprog/../threads/list.h \
  ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
  /usr/include/c++/5/bits/stl_algobase.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -1374,21 +1401,23 @@ translate.o: ../machine/translate.cc /usr/include/stdc-predef.h \
  /usr/lib/gcc/x86_64-linux-gnu/5/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
- ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
- ../filesys/filesys.h ../filesys/openfile.h \
- ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
- ../userprog/../bin/noff.h ../threads/system.h ../threads/utility.h \
- ../threads/thread.h ../machine/machine.h ../threads/scheduler.h \
- ../threads/list.h ../machine/interrupt.h ../threads/list.h \
- ../machine/stats.h ../machine/timer.h ../userprog/memory_manager.h \
- ../userprog/bitmap.h ../filesys/openfile.h \
- ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
- ../userprog/../threads/thread.h ../userprog/../threads/list.h \
- ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../threads/system.h ../threads/utility.h \
+ ../threads/thread.h ../machine/machine.h ../threads/scheduler.h \
+ ../threads/list.h ../threads/../machine/stats.h \
+ ../threads/../machine/timer.h ../threads/../machine/interrupt.h \
+ ../threads/list.h ../userprog/memory_manager.h ../userprog/bitmap.h \
+ ../filesys/openfile.h ../userprog/../threads/synch.h \
+ ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
+ ../userprog/../threads/list.h ../userprog/table.h \
+ /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -1420,7 +1449,8 @@ translate.o: ../machine/translate.cc /usr/include/stdc-predef.h \
  /usr/include/c++/5/bits/stl_queue.h /usr/include/c++/5/cstdio \
  ../userprog/syscall.h ../userprog/spaceid_generator.h \
  ../userprog/synch_console.h ../userprog/../machine/console.h \
- ../userprog/../machine/../threads/utility.h
+ ../userprog/../machine/../threads/utility.h \
+ ../machine/../threads/system.h
 memory_manager.o: ../userprog/memory_manager.cc \
  /usr/include/stdc-predef.h /usr/include/c++/5/cstdlib \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
@@ -1455,8 +1485,9 @@ memory_manager.o: ../userprog/memory_manager.cc \
  ../filesys/openfile.h ../userprog/../threads/synch.h \
  ../userprog/../threads/copyright.h ../userprog/../threads/thread.h \
  ../userprog/../threads/utility.h ../machine/machine.h \
- ../machine/translate.h ../machine/disk.h ../userprog/addrspace.h \
- ../filesys/filesys.h ../filesys/openfile.h \
+ ../machine/translate.h /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
  ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
  ../userprog/../bin/noff.h ../userprog/../threads/list.h
 table.o: ../userprog/table.cc /usr/include/stdc-predef.h \
@@ -1489,14 +1520,16 @@ table.o: ../userprog/table.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../machine/machine.h ../threads/utility.h ../machine/translate.h \
- ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
- ../filesys/openfile.h ../userprog/../machine/translate.h \
- ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
- ../userprog/../threads/list.h /usr/include/c++/5/queue \
- /usr/include/c++/5/deque /usr/include/c++/5/bits/stl_algobase.h \
+ /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../userprog/../threads/list.h \
+ /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -1556,14 +1589,16 @@ spaceid_generator.o: ../userprog/spaceid_generator.cc \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/string.h \
  ../machine/machine.h ../threads/utility.h ../machine/translate.h \
- ../machine/disk.h ../userprog/addrspace.h ../filesys/filesys.h \
- ../filesys/openfile.h ../userprog/../machine/translate.h \
- ../userprog/../filesys/openfile.h ../userprog/../bin/noff.h \
- ../userprog/../threads/list.h /usr/include/c++/5/queue \
- /usr/include/c++/5/deque /usr/include/c++/5/bits/stl_algobase.h \
+ /usr/include/c++/5/ctime \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
+ ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
+ ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
+ ../userprog/../bin/noff.h ../userprog/../threads/list.h \
+ /usr/include/c++/5/queue /usr/include/c++/5/deque \
+ /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \
@@ -1628,16 +1663,17 @@ synch_console.o: ../userprog/synch_console.cc /usr/include/stdc-predef.h \
  ../userprog/../machine/../threads/utility.h \
  ../userprog/../threads/synch.h ../userprog/../threads/copyright.h \
  ../userprog/../threads/thread.h ../userprog/../threads/utility.h \
- ../machine/machine.h ../machine/translate.h ../machine/disk.h \
+ ../machine/machine.h ../machine/translate.h /usr/include/c++/5/ctime \
+ /usr/include/x86_64-linux-gnu/bits/timex.h ../machine/disk.h \
  ../userprog/addrspace.h ../filesys/filesys.h ../filesys/openfile.h \
  ../userprog/../machine/translate.h ../userprog/../filesys/openfile.h \
  ../userprog/../bin/noff.h ../userprog/../threads/list.h \
  ../threads/system.h ../threads/utility.h ../threads/thread.h \
- ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
- ../threads/list.h ../machine/stats.h ../machine/timer.h \
- ../userprog/memory_manager.h ../userprog/bitmap.h ../filesys/openfile.h \
- ../userprog/table.h /usr/include/c++/5/queue /usr/include/c++/5/deque \
- /usr/include/c++/5/bits/stl_algobase.h \
+ ../threads/scheduler.h ../threads/list.h ../threads/../machine/stats.h \
+ ../threads/../machine/timer.h ../threads/../machine/interrupt.h \
+ ../threads/list.h ../userprog/memory_manager.h ../userprog/bitmap.h \
+ ../filesys/openfile.h ../userprog/table.h /usr/include/c++/5/queue \
+ /usr/include/c++/5/deque /usr/include/c++/5/bits/stl_algobase.h \
  /usr/include/c++/5/bits/functexcept.h \
  /usr/include/c++/5/bits/exception_defines.h \
  /usr/include/c++/5/bits/cpp_type_traits.h \

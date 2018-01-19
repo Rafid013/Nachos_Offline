@@ -69,8 +69,15 @@ AddrSpace::AddrSpace() {
 
 bool AddrSpace::Initialize(OpenFile *executable) {
 
-    //Executable Header related checks
 
+    for(int i = 0; i < SWAP_SIZE; ++i) {
+        swapSpace[i] = new char[PageSize];
+        swapOccupied[i] = false;
+    }
+
+
+
+    //Executable Header related checks
     this->executable = executable;
     unsigned int i, size;
 
@@ -91,9 +98,6 @@ bool AddrSpace::Initialize(OpenFile *executable) {
 
     //check if it fits
     //if(!memoryManager->checkAndDecreasePageCount(numPages)) return false;
-
-    if(numPages > NumPhysPages)
-        return false;
 
     DEBUG('a', "Initializing address space, num pages %d, size %d\n",
           numPages, size);
@@ -213,6 +217,10 @@ int AddrSpace::loadIntoFreePage(int addr, int physicalPageNo) {
     int virtualPageNo = addr/PageSize;
     pageTable[virtualPageNo].physicalPage = physicalPageNo;
     pageTable[virtualPageNo].valid = true;
+
+    printf("Virtual Page No. for Address %d is %d\n", addr, virtualPageNo);
+    printf("Physical Page No. for Address %d is %d\n", addr, physicalPageNo);
+
     loadSegment(virtualPageNo, physicalPageNo);
     return 0;
 }
@@ -242,6 +250,8 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
         //load code segment starting from physical address
         executable->ReadAt(machine->mainMemory + physAddr, codeSize, inFileAddr);
 
+        printf("Loaded code segment from %d to %d\n", startingAddr, startingAddr + codeSize - 1);
+
         //if page is not fully loaded
         if(codeSize < PageSize) {
             //size of the data segment to be loaded
@@ -249,23 +259,31 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
             if(noffH->initData.size < PageSize - codeSize) dataSize = noffH->initData.size;
             else dataSize = PageSize - codeSize;
 
-            //in file address for data segment start
-            inFileAddr = noffH->initData.inFileAddr;
+            if(dataSize != 0) {
 
-            //load data segment starting from where code segment finished
-            executable->ReadAt(machine->mainMemory + (physAddr + codeSize), dataSize, inFileAddr);
+                //in file address for data segment start
+                inFileAddr = noffH->initData.inFileAddr;
+
+                //load data segment starting from where code segment finished
+                executable->ReadAt(machine->mainMemory + (physAddr + codeSize), dataSize, inFileAddr);
+
+                printf("Loaded data segment from %d to %d\n", noffH->initData.virtualAddr,
+                       noffH->initData.virtualAddr + dataSize - 1);
+            }
         }
 
         //if page is still not fully loaded
         if(codeSize + dataSize < PageSize) {
             //zero out the remaining page
             bzero(machine->mainMemory + (physAddr + codeSize + dataSize), PageSize - codeSize - dataSize);
+
+            printf("Zeroed from %d to %d\n", startingAddr + codeSize + dataSize, startingAddr + PageSize - 1);
         }
     }
 
-    //check if the starting address is in data segment
+        //check if the starting address is in data segment
     else if(startingAddr >= noffH->initData.virtualAddr
-        && startingAddr < noffH->initData.virtualAddr + noffH->initData.size) {
+            && startingAddr < noffH->initData.virtualAddr + noffH->initData.size) {
         //size of the data segment to be loaded
         dataSize = 0;
         if(noffH->initData.size + noffH->initData.virtualAddr - startingAddr < PageSize)
@@ -278,15 +296,50 @@ void AddrSpace::loadSegment(int virtualPageNo, int physicalPageNo) {
         //load data segment starting from physical address
         executable->ReadAt(machine->mainMemory + physAddr, dataSize, inFileAddr);
 
+        printf("Loaded data segment from %d to %d\n", startingAddr, startingAddr + dataSize - 1);
+
         //if page is not fully loaded
         if(dataSize < PageSize) {
             //zero out the remaining page
             bzero(machine->mainMemory + (physAddr + dataSize), PageSize - dataSize);
+
+            printf("Zeroed from %d to %d\n", startingAddr + dataSize, startingAddr + PageSize - 1);
         }
     }
 
-    //if in uninit segment and other cases
+        //if in uninit segment and other cases
     else {
         bzero(machine->mainMemory + physAddr, PageSize);
+
+        printf("Zeroed from %d to %d\n", startingAddr, startingAddr + PageSize - 1);
     }
+}
+
+
+void AddrSpace::saveIntoSwapSpace(int vpn) {
+
+    pageTable[vpn].valid = false;
+
+    int ppn = pageTable[vpn].physicalPage;
+
+    printf("Saving for page %d\n", vpn);
+    for(int i = 0; i < PageSize; ++i) {
+        swapSpace[vpn][i] = machine->mainMemory[ppn*PageSize + i];
+    }
+    swapOccupied[vpn] = true;
+}
+
+
+void AddrSpace::loadFromSwapSpace(int vpn) {
+    int ppn = pageTable[vpn].physicalPage*PageSize;
+    printf("Loading for page %d\n", vpn);
+    for(int i = 0; i < PageSize; ++i) {
+        machine->mainMemory[ppn + i] = swapSpace[vpn][i];
+    }
+    pageTable[vpn].valid = true;
+}
+
+
+bool AddrSpace::isSwapPageExists(int vpn) {
+    return swapOccupied[vpn];
 }
